@@ -90,4 +90,11 @@ typings/
 
 # Electron-Forge
 out/
+dist/
 
+# VSCode
+.vscode/
+
+*.ts.txt
+ai-kb-*.md
+ai-kb-tree.txt
