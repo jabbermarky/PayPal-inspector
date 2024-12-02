@@ -1,0 +1,617 @@
+# Directory Structure
+
+├── .webpack/
+│   ├── main/
+│   │   ├── index.js
+│   │   └── index.js.map
+│   └── renderer/
+│       └── main_window/
+│           ├── index.html
+│           ├── index.js
+│           └── preload.js
+├── assets/
+│   ├── background.png
+│   └── PayPalInspector.icns
+├── out/
+│   ├── make/
+│   │   └── PayPal Inspector-0.1.0-universal.dmg
+│   ├── PayPal Inspector-darwin-universal/
+│   │   ├── PayPal Inspector.app/
+│   │   │   └── Contents/
+│   │   │       ├── Frameworks/
+│   │   │       │   ├── Electron Framework.framework/
+│   │   │       │   │   ├── Helpers/
+│   │   │       │   │   │   └── chrome_crashpad_handler
+│   │   │       │   │   ├── Libraries/
+│   │   │       │   │   │   ├── libEGL.dylib
+│   │   │       │   │   │   ├── libffmpeg.dylib
+│   │   │       │   │   │   ├── libGLESv2.dylib
+│   │   │       │   │   │   ├── libvk_swiftshader.dylib
+│   │   │       │   │   │   └── vk_swiftshader_icd.json
+│   │   │       │   │   ├── Resources/
+│   │   │       │   │   │   ├── af.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── am.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── ar.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── bg.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── bn.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── ca.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── cs.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── da.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── de.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── el.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── en_GB.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── en.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── es_419.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── es.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── et.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── fa.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── fi.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── fil.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── fr.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── gu.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── he.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── hi.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── hr.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── hu.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── id.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── it.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── ja.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── kn.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── ko.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── lt.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── lv.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── ml.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── mr.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── ms.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── nb.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── nl.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── pl.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── pt_BR.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── pt_PT.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── ro.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── ru.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── sk.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── sl.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── sr.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── sv.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── sw.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── ta.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── te.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── th.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── tr.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── uk.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── ur.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── vi.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── zh_CN.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── zh_TW.lproj/
+│   │   │       │   │   │   │   └── locale.pak
+│   │   │       │   │   │   ├── chrome_100_percent.pak
+│   │   │       │   │   │   ├── chrome_200_percent.pak
+│   │   │       │   │   │   ├── icudtl.dat
+│   │   │       │   │   │   ├── Info.plist
+│   │   │       │   │   │   ├── MainMenu.nib
+│   │   │       │   │   │   ├── resources.pak
+│   │   │       │   │   ├── Versions/
+│   │   │       │   │   │   ├── A/
+│   │   │       │   │   │   │   ├── Helpers/
+│   │   │       │   │   │   │   │   └── chrome_crashpad_handler
+│   │   │       │   │   │   │   ├── Libraries/
+│   │   │       │   │   │   │   │   ├── libEGL.dylib
+│   │   │       │   │   │   │   │   ├── libffmpeg.dylib
+│   │   │       │   │   │   │   │   ├── libGLESv2.dylib
+│   │   │       │   │   │   │   │   ├── libvk_swiftshader.dylib
+│   │   │       │   │   │   │   │   └── vk_swiftshader_icd.json
+│   │   │       │   │   │   │   ├── Resources/
+│   │   │       │   │   │   │   │   ├── af.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── am.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── ar.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── bg.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── bn.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── ca.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── cs.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── da.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── de.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── el.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── en_GB.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── en.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── es_419.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── es.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── et.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── fa.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── fi.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── fil.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── fr.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── gu.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── he.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── hi.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── hr.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── hu.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── id.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── it.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── ja.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── kn.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── ko.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── lt.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── lv.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── ml.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── mr.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── ms.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── nb.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── nl.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── pl.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── pt_BR.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── pt_PT.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── ro.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── ru.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── sk.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── sl.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── sr.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── sv.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── sw.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── ta.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── te.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── th.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── tr.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── uk.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── ur.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── vi.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── zh_CN.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── zh_TW.lproj/
+│   │   │       │   │   │   │   │   │   └── locale.pak
+│   │   │       │   │   │   │   │   ├── chrome_100_percent.pak
+│   │   │       │   │   │   │   │   ├── chrome_200_percent.pak
+│   │   │       │   │   │   │   │   ├── icudtl.dat
+│   │   │       │   │   │   │   │   ├── Info.plist
+│   │   │       │   │   │   │   │   ├── MainMenu.nib
+│   │   │       │   │   │   │   │   ├── resources.pak
+│   │   │       │   │   │   │   └── Electron Framework
+│   │   │       │   │   │   └── Current/
+│   │   │       │   │   │       ├── Helpers/
+│   │   │       │   │   │       │   └── chrome_crashpad_handler
+│   │   │       │   │   │       ├── Libraries/
+│   │   │       │   │   │       │   ├── libEGL.dylib
+│   │   │       │   │   │       │   ├── libffmpeg.dylib
+│   │   │       │   │   │       │   ├── libGLESv2.dylib
+│   │   │       │   │   │       │   ├── libvk_swiftshader.dylib
+│   │   │       │   │   │       │   └── vk_swiftshader_icd.json
+│   │   │       │   │   │       ├── Resources/
+│   │   │       │   │   │       │   ├── af.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── am.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── ar.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── bg.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── bn.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── ca.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── cs.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── da.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── de.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── el.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── en_GB.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── en.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── es_419.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── es.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── et.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── fa.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── fi.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── fil.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── fr.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── gu.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── he.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── hi.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── hr.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── hu.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── id.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── it.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── ja.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── kn.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── ko.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── lt.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── lv.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── ml.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── mr.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── ms.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── nb.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── nl.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── pl.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── pt_BR.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── pt_PT.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── ro.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── ru.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── sk.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── sl.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── sr.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── sv.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── sw.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── ta.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── te.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── th.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── tr.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── uk.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── ur.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── vi.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── zh_CN.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── zh_TW.lproj/
+│   │   │       │   │   │       │   │   └── locale.pak
+│   │   │       │   │   │       │   ├── chrome_100_percent.pak
+│   │   │       │   │   │       │   ├── chrome_200_percent.pak
+│   │   │       │   │   │       │   ├── icudtl.dat
+│   │   │       │   │   │       │   ├── Info.plist
+│   │   │       │   │   │       │   ├── MainMenu.nib
+│   │   │       │   │   │       │   ├── resources.pak
+│   │   │       │   │   │       └── Electron Framework
+│   │   │       │   │   └── Electron Framework
+│   │   │       │   ├── Mantle.framework/
+│   │   │       │   │   ├── Resources/
+│   │   │       │   │   │   └── Info.plist
+│   │   │       │   │   ├── Versions/
+│   │   │       │   │   │   ├── A/
+│   │   │       │   │   │   │   ├── Resources/
+│   │   │       │   │   │   │   │   └── Info.plist
+│   │   │       │   │   │   │   └── Mantle
+│   │   │       │   │   │   └── Current/
+│   │   │       │   │   │       ├── Resources/
+│   │   │       │   │   │       │   └── Info.plist
+│   │   │       │   │   │       └── Mantle
+│   │   │       │   │   └── Mantle
+│   │   │       │   ├── PayPal Inspector Helper (GPU).app/
+│   │   │       │   │   └── Contents/
+│   │   │       │   │       ├── MacOS/
+│   │   │       │   │       │   └── PayPal Inspector Helper (GPU)
+│   │   │       │   │       ├── Info.plist
+│   │   │       │   │       └── PkgInfo
+│   │   │       │   ├── PayPal Inspector Helper (Plugin).app/
+│   │   │       │   │   └── Contents/
+│   │   │       │   │       ├── MacOS/
+│   │   │       │   │       │   └── PayPal Inspector Helper (Plugin)
+│   │   │       │   │       ├── Info.plist
+│   │   │       │   │       └── PkgInfo
+│   │   │       │   ├── PayPal Inspector Helper (Renderer).app/
+│   │   │       │   │   └── Contents/
+│   │   │       │   │       ├── MacOS/
+│   │   │       │   │       │   └── PayPal Inspector Helper (Renderer)
+│   │   │       │   │       ├── Info.plist
+│   │   │       │   │       └── PkgInfo
+│   │   │       │   ├── PayPal Inspector Helper.app/
+│   │   │       │   │   └── Contents/
+│   │   │       │   │       ├── MacOS/
+│   │   │       │   │       │   └── PayPal Inspector Helper
+│   │   │       │   │       ├── Info.plist
+│   │   │       │   │       └── PkgInfo
+│   │   │       │   ├── ReactiveObjC.framework/
+│   │   │       │   │   ├── Resources/
+│   │   │       │   │   │   └── Info.plist
+│   │   │       │   │   ├── Versions/
+│   │   │       │   │   │   ├── A/
+│   │   │       │   │   │   │   ├── Resources/
+│   │   │       │   │   │   │   │   └── Info.plist
+│   │   │       │   │   │   │   └── ReactiveObjC
+│   │   │       │   │   │   └── Current/
+│   │   │       │   │   │       ├── Resources/
+│   │   │       │   │   │       │   └── Info.plist
+│   │   │       │   │   │       └── ReactiveObjC
+│   │   │       │   │   └── ReactiveObjC
+│   │   │       │   └── Squirrel.framework/
+│   │   │       │       ├── Resources/
+│   │   │       │       │   ├── Info.plist
+│   │   │       │       │   └── ShipIt
+│   │   │       │       ├── Versions/
+│   │   │       │       │   ├── A/
+│   │   │       │       │   │   ├── Resources/
+│   │   │       │       │   │   │   ├── Info.plist
+│   │   │       │       │   │   │   └── ShipIt
+│   │   │       │       │   │   └── Squirrel
+│   │   │       │       │   └── Current/
+│   │   │       │       │       ├── Resources/
+│   │   │       │       │       │   ├── Info.plist
+│   │   │       │       │       │   └── ShipIt
+│   │   │       │       │       └── Squirrel
+│   │   │       │       └── Squirrel
+│   │   │       ├── MacOS/
+│   │   │       │   └── PayPal Inspector
+│   │   │       ├── Resources/
+│   │   │       │   ├── af.lproj/
+│   │   │       │   ├── am.lproj/
+│   │   │       │   ├── app/
+│   │   │       │   │   ├── .webpack/
+│   │   │       │   │   │   ├── main/
+│   │   │       │   │   │   │   └── index.js
+│   │   │       │   │   │   └── renderer/
+│   │   │       │   │   │       └── main_window/
+│   │   │       │   │   │           ├── index.html
+│   │   │       │   │   │           ├── index.js
+│   │   │       │   │   │           └── preload.js
+│   │   │       │   │   └── package.json
+│   │   │       │   ├── ar.lproj/
+│   │   │       │   ├── bg.lproj/
+│   │   │       │   ├── bn.lproj/
+│   │   │       │   ├── ca.lproj/
+│   │   │       │   ├── cs.lproj/
+│   │   │       │   ├── da.lproj/
+│   │   │       │   ├── de.lproj/
+│   │   │       │   ├── el.lproj/
+│   │   │       │   ├── en_GB.lproj/
+│   │   │       │   ├── en.lproj/
+│   │   │       │   ├── es_419.lproj/
+│   │   │       │   ├── es.lproj/
+│   │   │       │   ├── et.lproj/
+│   │   │       │   ├── fa.lproj/
+│   │   │       │   ├── fi.lproj/
+│   │   │       │   ├── fil.lproj/
+│   │   │       │   ├── fr.lproj/
+│   │   │       │   ├── gu.lproj/
+│   │   │       │   ├── he.lproj/
+│   │   │       │   ├── hi.lproj/
+│   │   │       │   ├── hr.lproj/
+│   │   │       │   ├── hu.lproj/
+│   │   │       │   ├── id.lproj/
+│   │   │       │   ├── it.lproj/
+│   │   │       │   ├── ja.lproj/
+│   │   │       │   ├── kn.lproj/
+│   │   │       │   ├── ko.lproj/
+│   │   │       │   ├── lt.lproj/
+│   │   │       │   ├── lv.lproj/
+│   │   │       │   ├── ml.lproj/
+│   │   │       │   ├── mr.lproj/
+│   │   │       │   ├── ms.lproj/
+│   │   │       │   ├── nb.lproj/
+│   │   │       │   ├── nl.lproj/
+│   │   │       │   ├── pl.lproj/
+│   │   │       │   ├── pt_BR.lproj/
+│   │   │       │   ├── pt_PT.lproj/
+│   │   │       │   ├── ro.lproj/
+│   │   │       │   ├── ru.lproj/
+│   │   │       │   ├── sk.lproj/
+│   │   │       │   ├── sl.lproj/
+│   │   │       │   ├── sr.lproj/
+│   │   │       │   ├── sv.lproj/
+│   │   │       │   ├── sw.lproj/
+│   │   │       │   ├── ta.lproj/
+│   │   │       │   ├── te.lproj/
+│   │   │       │   ├── th.lproj/
+│   │   │       │   ├── tr.lproj/
+│   │   │       │   ├── uk.lproj/
+│   │   │       │   ├── ur.lproj/
+│   │   │       │   ├── vi.lproj/
+│   │   │       │   ├── zh_CN.lproj/
+│   │   │       │   ├── zh_TW.lproj/
+│   │   │       │   └── electron.icns
+│   │   │       ├── Info.plist
+│   │   │       └── PkgInfo
+│   │   ├── LICENSE
+│   │   ├── LICENSES.chromium.html
+│   │   └── version
+├── src/
+│   ├── main/
+│   │   ├── components/
+│   │   ├── constants/
+│   │   ├── ipc/
+│   │   │   ├── browser-events.ts
+│   │   │   └── monitoring.ts
+│   │   ├── services/
+│   │   │   ├── browser-manager.ts
+│   │   │   └── monitoring-service.ts
+│   │   ├── types/
+│   │   └── index.ts
+│   ├── preload/
+│   │   ├── components/
+│   │   ├── constants/
+│   │   ├── ipc/
+│   │   ├── services/
+│   │   ├── types/
+│   │   ├── index.ts
+│   │   └── monitoring-bridge.ts
+│   ├── renderer/
+│   │   ├── components/
+│   │   ├── constants/
+│   │   ├── ipc/
+│   │   ├── services/
+│   │   │   ├── sdk-identification.ts
+│   │   │   ├── session-manager.ts
+│   │   │   └── ui-state.ts
+│   │   ├── styles/
+│   │   │   └── main.css
+│   │   ├── types/
+│   │   ├── index.html
+│   │   └── index.ts
+│   ├── shared/
+│   │   ├── components/
+│   │   ├── constants/
+│   │   ├── ipc/
+│   │   ├── services/
+│   │   └── types/
+│   │       ├── integration.ts
+│   │       ├── ipc.ts
+│   │       ├── sdk.ts
+│   │       └── session.ts
+│   ├── global.d.ts
+│   ├── index._ts.old
+│   ├── index.css.old
+│   ├── index.html.old
+│   ├── preload.ts.old
+│   └── renderer.ts.old
+├── .ai-kb-config
+├── .eslintrc.json
+├── ai-kb-config.md
+├── ai-kb-global.md
+├── ai-kb-main.md
+├── ai-kb-preload.md
+├── ai-kb-renderer.md
+├── ai-kb-shared.md
+├── ai-kb-tree.txt
+├── browser-manager.ts.txt
+├── forge.config.ts
+├── ipc-handlers.ts.txt
+├── main-process.ts.txt
+├── monitoring-service.ts.txt
+├── package.json
+├── preload-bridges.ts.txt
+├── renderer-entry.ts.txt
+├── renderer-services.ts.txt
+├── shared-types.ts.txt
+├── tsconfig.json
+├── webpack.main.config.ts
+├── webpack.plugins.ts
+├── webpack.preload.config.ts
+├── webpack.renderer.config.ts
+└── webpack.rules.ts

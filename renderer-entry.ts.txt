@@ -1,0 +1,101 @@
+// src/renderer/index.ts
+import { SessionManager } from './services/session-manager';
+import { UIStateManager } from './services/ui-state';
+
+class App {
+  private sessionManager: SessionManager;
+  private uiState: UIStateManager;
+
+  constructor() {
+    this.sessionManager = new SessionManager();
+    this.uiState = new UIStateManager();
+    this.initializeEventListeners();
+  }
+
+  private initializeEventListeners(): void {
+    document.getElementById('start-session')?.addEventListener('click', () => this.handleStartSession());
+    document.getElementById('end-session')?.addEventListener('click', () => this.handleEndSession());
+
+    window.electronAPI.onPageMetrics((data) => {
+      this.sessionManager.updateMetrics(data);
+      this.updateProgress();
+    });
+
+    window.electronAPI.onPageNavigated((url) => {
+      this.sessionManager.addNewPage(url);
+      this.updateProgress();
+    });
+  }
+
+  private async handleStartSession(): Promise<void> {
+    try {
+      const name = (document.getElementById('session-name') as HTMLInputElement).value.trim();
+      const description = (document.getElementById('session-description') as HTMLInputElement).value.trim();
+      const startUrl = (document.getElementById('start-url') as HTMLInputElement).value.trim();
+
+      await this.sessionManager.startSession(name, description, startUrl);
+      this.uiState.updateControls(true);
+    } catch (error) {
+      console.error('Error starting session:', error);
+      alert(`Failed to start session: ${(error as Error).message}`);
+    }
+  }
+
+  private async handleEndSession(): Promise<void> {
+    try {
+      await this.sessionManager.endSession();
+      this.uiState.updateControls(false);
+      this.clearProgress();
+    } catch (error) {
+      console.error('Error ending session:', error);
+    }
+  }
+
+  private clearProgress(): void {
+    const pagesList = document.getElementById('pages-list');
+    if (pagesList) pagesList.innerHTML = '';
+  }
+
+  private updateProgress(): void {
+    const session = this.sessionManager.getCurrentSession();
+    if (!session) return;
+
+    const pagesList = document.getElementById('pages-list');
+    if (!pagesList) return;
+
+    // Implementation of progress update UI...
+    // This would be similar to the original JavaScript implementation
+    // but with proper TypeScript types
+  }
+}
+
+// Initialize the app when the DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+  new App();
+});
+
+// src/renderer/index.html
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Web Session Inspector</title>
+    <style>
+        /* Include your existing CSS styles here */
+    </style>
+</head>
+<body>
+    <div id="session-controls">
+        <input type="text" id="start-url" placeholder="Enter URL">
+        <div class="session-info">
+            <input type="text" id="session-name" placeholder="Session Name">
+            <input type="text" id="session-description" placeholder="Session Description">
+        </div>
+        <div class="controls">
+            <button id="start-session">Start Session</button>
+            <button id="end-session" disabled>End Session</button>
+        </div>
+    </div>
+    <div id="pages-list"></div>
+</body>
+</html>
