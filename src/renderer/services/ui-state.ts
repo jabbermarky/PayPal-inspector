@@ -8,7 +8,8 @@ export class UIStateManager {
       'session-description': sessionActive,
       'start-url': sessionActive,
       'start-session': sessionActive,
-      'end-session': !sessionActive
+      'end-session': !sessionActive,
+      'capture-screen': !sessionActive
     };
 
     Object.entries(elements).forEach(([id, disabled]) => {

@@ -17,4 +17,11 @@ export function setupBrowserEvents(browserManager: BrowserManager): void {
       return browserManager.endSession();
     }
   );
+
+  ipcMain.handle(
+    'capture-screen',
+    async (): Promise<{ success: boolean }> => {
+      return browserManager.captureScreen();
+    }
+  );
 }

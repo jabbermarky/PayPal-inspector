@@ -56,9 +56,12 @@ class WebSessionBrowser {
       document.getElementById('cancel-session')?.addEventListener('click', () => {
         if (this.modal) this.modal.style.display = 'none';
       });
-      
+
       document.getElementById('end-session')?.addEventListener('click',
         () => this.handleEndSession());
+
+      document.getElementById("capture-screen")?.addEventListener('click',
+        () => this.handleScreenCap());
 
       // Close modal if clicking outside
       window.addEventListener('click', (event) => {
@@ -99,13 +102,25 @@ class WebSessionBrowser {
     }
   }
 
+  private async handleScreenCap(): Promise<void> {
+    try {
+      console.log('handleScreenCap (click)');
+      const width = 0;
+      const height = 0;
+      const result = await window.electronAPI.captureScreen();
+    } catch (error) {
+      console.error('Error capturing screen:', error);
+      alert(`Failed to capture screen: ${(error as Error).message}`);
+    }
+  }
+
   private async handleStartSession(): Promise<void> {
     try {
       console.log('handleStartSession (click)');
       const name = (document.getElementById('session-name') as HTMLInputElement).value.trim() || 'test';
       const description = (document.getElementById('session-description') as HTMLTextAreaElement).value.trim() || 'n/a';
 
-      if (!name || !description ) {
+      if (!name || !description) {
         alert('Please fill in all fields');
         return;
       }

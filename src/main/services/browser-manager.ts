@@ -1,17 +1,26 @@
 // src/main/services/browser-manager.ts
-import { app, BrowserWindow, WebContentsView, WebContents, Menu, MenuItem } from "electron";
-import type { Event } from 'electron';
+import { app, BrowserWindow, WebContentsView, WebContents, Menu, MenuItem, nativeImage } from "electron";
+import type { Event, NativeImage } from 'electron';
 import { join, resolve } from 'path';
 import { WebContentsResult } from '../../shared/types/ipc'; // ../../shared/types/ipc
+import { writeFile } from "node:original-fs";
+import { homedir } from "node:os";
+
 
 export class BrowserManager {
   private mainWindow: BrowserWindow;
   private contentView: WebContentsView | null = null;
   private monitoringScript: string;
+  private contentHeight: number = 0;
+  private contentWidth: number = 0;
+  private debuggerAttached: boolean = false;
+
 
   constructor(mainWindow: BrowserWindow) {
     this.mainWindow = mainWindow;
     this.monitoringScript = this.loadMonitoringScript();
+    this.contentHeight = 0;
+    this.contentWidth = 0;
 
     // Set up the menu
     this.setupMenu();
@@ -205,9 +214,11 @@ export class BrowserManager {
 
   private cleanupContentView(): void {
     if (this.contentView) {
+      if (this.debuggerAttached) this.contentView.webContents.debugger.detach();
       this.setContentMenuState(false); // disable menu when contentView is not loaded
       this.mainWindow.contentView.removeChildView(this.contentView);
       this.contentView = null;
+      this.debuggerAttached = false;
     }
   }
 
@@ -234,6 +245,8 @@ export class BrowserManager {
 
       this.mainWindow.contentView.addChildView(this.contentView);
       await this.updateContentViewBounds();
+
+
 
       const sanitizedUrl = !url.startsWith('http') ? `https://${url}` : url;
       console.log('loadURL:', sanitizedUrl);
@@ -266,6 +279,43 @@ export class BrowserManager {
     });
   }
 
+  private async debugCommand(method: string, params: any = null, sessionId: string | undefined = undefined) {
+    if (sessionId) {
+      return await this.contentView?.webContents.debugger.sendCommand(method, params, sessionId);
+    } else {
+      return await this.contentView?.webContents.debugger.sendCommand(method, params);
+    }
+  }
+
+  private async setupDebugger(webContents: WebContents) {
+    console.log(`setupDebugger`);
+    try {
+      if (this.debuggerAttached) {
+        console.log(`debugger already attached`);
+        return;
+      } // only attach once
+
+      webContents.debugger.attach();
+      this.debuggerAttached = true;
+      webContents.debugger.on('detach', (_event, reason) => {
+        console.log(`Debugger detached due to ${reason}`);
+        this.debuggerAttached = false;
+      });
+      webContents.debugger.on('message', async (_event, method, params, sessionId) => {
+        if (method === 'Fetch.requestPaused') {
+          await this.debugCommand("Fetch.continueRequest", { requestId: params.requestId }, sessionId);
+          console.log(`Fetch ${params.resourceType} ${params.request.method} ${params.request.url}`);
+        } else {
+          console.log(`Debugger method ${method} params ${JSON.stringify(params, null, 2)}`);
+        }
+      });
+      const bv = await this.debugCommand('Browser.getVersion');
+      console.log(`Debugger browser version is ${JSON.stringify(bv, null, 2)}`);
+      await this.debugCommand("Fetch.enable", { patterns: [{ urlPattern: "*", requestStage: "Request" }] });
+    } catch (err) {
+      console.log(`Debugger attach failed : `, err);
+    }
+  }
   private setupWebContentsHandlers(webContents: WebContents): void {
     console.log('setupWebContentsHandlers');
     webContents.setWindowOpenHandler(({ url }) => {
@@ -289,17 +339,27 @@ export class BrowserManager {
 
     webContents.on('did-finish-load', async () => {
       console.log('did-finish-load');
+      this.setupDebugger(webContents);
       await webContents.executeJavaScript(this.monitoringScript)
         .catch(err => console.error('Error injecting monitoring script:', err));
       console.log('Monitoring script injected');
       const currentURL = webContents.getURL();
       console.log('Sending page navigation event for:', currentURL);
       this.mainWindow.webContents.send('page-navigated', currentURL);
+      this.getContentSize(webContents);
     });
 
     webContents.on('dom-ready', () => {
       console.log('DOM is ready');
     });
+  }
+  private async getContentSize(webContents: WebContents) {
+    const result = await webContents.executeJavaScript(
+      `[document.body.scrollWidth, document.body.scrollHeight]`)
+      .catch(err => console.error('Error getting scrollHeight/scrollWidth:', err));
+    this.contentWidth = result[0];
+    this.contentHeight = result[1];
+    console.log(`webContents height ${result[1]}, width ${result[0]}`);
   }
 
   async endSession(): Promise<{ success: boolean }> {
@@ -312,5 +372,53 @@ export class BrowserManager {
     }
   }
 
+  async captureHiddenScreen(contentView: WebContentsView, height: number, width: number) {
 
+    let oldBounds = contentView.getBounds();
+    console.log(`old bounds = ${JSON.stringify(oldBounds, null, 2)}`);
+
+    let newWindow = new BrowserWindow({
+      width: width,
+      height: height,
+      enableLargerThanScreen: true,
+      show:false,
+      webPreferences: {
+        offscreen: true,
+        nodeIntegration: false,
+        contextIsolation: true,
+      }
+    });
+    this.mainWindow.contentView.removeChildView(contentView);
+    newWindow.contentView.addChildView(contentView);
+    contentView.setBounds({ x: 0, y: 0, height, width });
+
+    const nativeImage: NativeImage = await contentView.webContents.capturePage({ x: 0, y: 0, width, height });
+    let img2 = nativeImage.toPNG();
+    const pngFile2 = join(homedir(), 'Desktop', 'image2.png');
+    writeFile(pngFile2, img2, "base64", function (err) {
+      if (err) throw err;
+      console.log("Saved 2!");
+    });
+
+    // put it back
+    newWindow.contentView.removeChildView(contentView);
+    newWindow.destroy();
+    contentView.setBounds(oldBounds);
+    this.mainWindow.contentView.addChildView(contentView);
+  }
+
+  async captureScreen(): Promise<{ success: boolean }> {
+    try {
+      if (!this.contentView) {
+        console.error('No content view to capture');
+        return { success: false };
+      }
+      console.log(`captureScreen height ${this.contentHeight}, width ${this.contentWidth}`);
+      this.captureHiddenScreen(this.contentView, this.contentHeight, this.contentWidth);
+      return { success: true };
+    } catch (error) {
+      console.error('Error capturing:', error);
+      return { success: false };
+    }
+  }
 }

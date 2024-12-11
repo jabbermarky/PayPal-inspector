@@ -17,6 +17,7 @@ function createWindow(): void {
   mainWindow = new BrowserWindow({
     width: 1400,
     height: 900,
+    enableLargerThanScreen: true,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
@@ -40,6 +41,7 @@ function createWindow(): void {
     mainWindow = null;
     browserManager = null;
   });
+
 }
 
 // Handle app lifecycle

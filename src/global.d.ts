@@ -26,6 +26,7 @@ declare global {
       endSession: () => Promise<{ success: boolean }>;
       onPageMetrics: (callback: (data: any) => void) => void;
       onPageNavigated: (callback: (url: string) => void) => void;
+      captureScreen: () => Promise<{ success: boolean }>;
     };
   }
 

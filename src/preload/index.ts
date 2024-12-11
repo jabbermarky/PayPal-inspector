@@ -50,6 +50,7 @@ try {
   contextBridge.exposeInMainWorld('electronAPI', {
     createWebContents: (url: string) => ipcRenderer.invoke('create-web-contents', url),
     endSession: () => ipcRenderer.invoke('end-session'),
+    captureScreen: () => ipcRenderer.invoke('capture-screen'),
     onPageMetrics: (callback: (data: any) => void) => 
       ipcRenderer.on('page-metrics', (_event:any, data:any) => callback(data)),
     onPageNavigated: (callback: (url: string) => void) => 
