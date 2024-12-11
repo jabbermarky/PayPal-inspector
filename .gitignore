@@ -95,6 +95,8 @@ dist/
 # VSCode
 .vscode/
 
+# other unnecessary text files
 *.ts.txt
+# output from AI Knowledgebase utility
 ai-kb-*.md
 ai-kb-tree.txt
