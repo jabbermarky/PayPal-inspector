@@ -394,7 +394,7 @@ export class BrowserManager {
 
     const nativeImage: NativeImage = await contentView.webContents.capturePage({ x: 0, y: 0, width, height });
     let img2 = nativeImage.toPNG();
-    const pngFile2 = join(homedir(), 'Desktop', 'image2.png');
+    const pngFile2 = join(homedir(), 'Desktop', 'image2.png'); //TODO: add code for specifying the filename
     writeFile(pngFile2, img2, "base64", function (err) {
       if (err) throw err;
       console.log("Saved 2!");
