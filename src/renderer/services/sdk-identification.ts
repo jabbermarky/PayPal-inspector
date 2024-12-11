@@ -18,8 +18,9 @@ export class SDKIdentificationService {
       params: ['client-id']
     },
     'PayPal Checkout.js': {
-      regex: /^https:\/\/www\.paypal\.com\/sdk\/js/,
-      params: ['client-id', 'components=checkout']
+      regex: /^https:\/\/www\.paypalobjects\.com\/api\/checkout\.js/,
+      //regex: /^https:\/\/www\.paypal\.com\/sdk\/js/,
+      //params: ['client-id', 'components=checkout']
     },
     'PayPal Buttons SDK': {
       regex: /^https:\/\/www\.paypal\.com\/sdk\/js/,
