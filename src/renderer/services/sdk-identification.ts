@@ -30,6 +30,10 @@ export class SDKIdentificationService {
       regex: /^https:\/\/www\.paypal\.com\/sdk\/js/,
       params: ['client-id', 'components=messages']
     },
+    'PayPal Fastlane SDK': {
+      regex: /^https:\/\/www\.paypal\.com\/sdk\/js/,
+      params: ['client-id', 'components=fastlane']
+    },
     'PayPal Shopper Insights SDK': {
       regex: /^https:\/\/www\.paypal\.com\/sdk\/js/,
       params: ['client-id', 'components=intelligent-payment-decisions']
