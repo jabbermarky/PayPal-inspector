@@ -42,7 +42,8 @@
   "author": "marklummus",
   "license": "MIT",
   "dependencies": {
-    "electron-squirrel-startup": "^1.0.1"
+    "electron-squirrel-startup": "^1.0.1",
+    "openai": "^4.76.3"
   },
   "config": {
     "forge": "./forge.config.ts"

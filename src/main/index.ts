@@ -8,7 +8,7 @@ import { setupMonitoringEvents } from './ipc/monitoring';
 let mainWindow: BrowserWindow | null = null;
 let browserManager: BrowserManager | null = null;
 
-function createWindow(): void {
+async function createWindow(): Promise<void> {
   // Add debug logging
   console.log('Creating window...');
   console.log('MAIN_WINDOW_WEBPACK_ENTRY:', MAIN_WINDOW_WEBPACK_ENTRY);

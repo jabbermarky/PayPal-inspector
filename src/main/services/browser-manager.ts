@@ -5,6 +5,7 @@ import { join, resolve } from 'path';
 import { WebContentsResult } from '../../shared/types/ipc'; // ../../shared/types/ipc
 import { writeFile } from "node:original-fs";
 import { homedir } from "node:os";
+import { callAssistant } from "./genai";
 
 
 export class BrowserManager {
@@ -255,6 +256,10 @@ export class BrowserManager {
 
       await this.contentView.webContents.loadURL(sanitizedUrl);
       this.setContentMenuState(true); // only enable menu item when contentView is loaded
+
+      const run = await callAssistant(url);
+      console.log('callAssistant returned run:', run);
+
       return { success: true, id: this.contentView.webContents.id };
     } catch (error) {
       console.error('Error creating web contents:', error);
