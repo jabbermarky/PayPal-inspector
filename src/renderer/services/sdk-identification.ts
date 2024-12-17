@@ -13,11 +13,11 @@ interface SDKMatch {
 
 export class SDKIdentificationService {
   private patterns: Record<string, SDKPattern> = {
-    'PayPal JS SDK': {
+    'PayPal JS SDK V5': {
       regex: /^https:\/\/www\.paypal\.com\/sdk\/js/,
-      params: ['client-id']
+      params: ['client-id'],
     },
-    'PayPal Checkout.js': {
+    'PayPal JS SDK V4': {
       regex: /^https:\/\/www\.paypalobjects\.com\/api\/checkout\.js/,
       //regex: /^https:\/\/www\.paypal\.com\/sdk\/js/,
       //params: ['client-id', 'components=checkout']
