@@ -3,9 +3,9 @@ import { app, BrowserWindow, WebContentsView, WebContents, Menu, MenuItem, nativ
 import type { Event, NativeImage } from 'electron';
 import { join, resolve } from 'path';
 import { WebContentsResult } from '../../shared/types/ipc'; // ../../shared/types/ipc
-import { writeFile } from "node:original-fs";
+import { writeFileSync } from "node:original-fs";
 import { homedir } from "node:os";
-import { callAssistant } from "./genai";
+import { callChat } from "./genai";
 
 
 export class BrowserManager {
@@ -257,8 +257,6 @@ export class BrowserManager {
       await this.contentView.webContents.loadURL(sanitizedUrl);
       this.setContentMenuState(true); // only enable menu item when contentView is loaded
 
-      const run = await callAssistant(url);
-      console.log('callAssistant returned run:', run);
 
       return { success: true, id: this.contentView.webContents.id };
     } catch (error) {
@@ -386,7 +384,7 @@ export class BrowserManager {
       width: width,
       height: height,
       enableLargerThanScreen: true,
-      show:false,
+      show: false,
       webPreferences: {
         offscreen: true,
         nodeIntegration: false,
@@ -398,18 +396,30 @@ export class BrowserManager {
     contentView.setBounds({ x: 0, y: 0, height, width });
 
     const nativeImage: NativeImage = await contentView.webContents.capturePage({ x: 0, y: 0, width, height });
-    let img2 = nativeImage.toPNG();
-    const pngFile2 = join(homedir(), 'Desktop', 'image2.png'); //TODO: add code for specifying the filename
-    writeFile(pngFile2, img2, "base64", function (err) {
-      if (err) throw err;
-      console.log("Saved 2!");
-    });
-
     // put it back
     newWindow.contentView.removeChildView(contentView);
     newWindow.destroy();
     contentView.setBounds(oldBounds);
     this.mainWindow.contentView.addChildView(contentView);
+
+
+    let img2 = nativeImage.toPNG();
+    const pngFile2 = join(homedir(), 'Desktop', 'image2.png'); //TODO: add code for specifying the filename
+    try {
+      writeFileSync(pngFile2, img2, "base64");
+      console.log("Saved 2!");
+    } catch (err) {
+      console.log('error saving screenshot ', err);
+    };
+
+    // var file = new File([pngFile2], "image3.png", {
+    //   type: "text/plain",
+    // });
+
+    //    const run = await callAssistant({ screenshot: pngFile2 });
+    //    console.log('callAssistant returned run:', run);
+    const run = await callChat({ screenshot: pngFile2 });
+    console.log('callChat returned run:', run);
   }
 
   async captureScreen(): Promise<{ success: boolean }> {
