@@ -1,16 +1,18 @@
 import OpenAI from "openai";
 import fs from 'fs';
-import dotenv from 'dotenv';
+import { configStore } from '../services/store';
+// import dotenv from 'dotenv';
 
-dotenv.config();
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-if (!OPENAI_API_KEY) {
-  console.error("OpenAI API key is not set");
-  process.exit(1);
-}
+// dotenv.config();
+// const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+// if (!OPENAI_API_KEY) {
+//   console.error("OpenAI API key is not set");
+//   process.exit(1);
+// }
 
 //const OPENAI_API_KEY = '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';
-const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
+//const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
+var openai: OpenAI | null = null;
 const BRANDI = 'asst_0gvshl7GZDs6dCUIvxLzWLaj';
 const BRANDI_JSON = 'asst_KetBa5TJspGM51mMsie3hBd5';
 
@@ -92,6 +94,20 @@ function readBase64File(filePath: string): string | null {
   return null;
 }
 
+function initOpenAI(): any {
+  // create openAI object
+  const OPENAI_API_KEY = configStore.get("OPENAI_API_KEY");
+  if (!OPENAI_API_KEY) {
+    return { error: "OpenAI API key is not set", openai:null };
+  }
+
+  if (!openai) openai = new OpenAI({ apiKey: OPENAI_API_KEY });
+  if (!openai) {
+    return { error: "Failed starting OpenAI interface", openai: null };
+  }
+  return { openai: openai };
+}
+
 export async function callChat(params: CallAssistant): Promise<object> {
   if (!params.screenshot) {
     return { error: "screenshot parameter is not defined" };
@@ -100,6 +116,13 @@ export async function callChat(params: CallAssistant): Promise<object> {
   if (!fs.existsSync(params.screenshot)) {
     return { error: "screenshot file does not exist" };
   }
+
+  const result = initOpenAI();
+  openai = result.openai;
+  if (!openai) {
+    return result;
+  }
+
   // Proceed with processing
   try {
     console.log(`callChat screenshot is ${params.screenshot}`);
@@ -138,6 +161,11 @@ export async function callAssistant(params: CallAssistant): Promise<object> {
 
     if (params.url && !params.screenshot) {
       messages.push({ role: "user", content: `What can you tell me about ${params.url}?` });
+    }
+    const result = initOpenAI();
+    openai = result.openai;
+    if (!openai) {
+      return result;
     }
 
     if (params.screenshot) {

@@ -54,7 +54,13 @@ try {
     onPageMetrics: (callback: (data: any) => void) => 
       ipcRenderer.on('page-metrics', (_event:any, data:any) => callback(data)),
     onPageNavigated: (callback: (url: string) => void) => 
-      ipcRenderer.on('page-navigated', (_event:any, url:any) => callback(url))
+      ipcRenderer.on('page-navigated', (_event:any, url:any) => callback(url)),
+  
+    // API Key management
+    hasRequiredKeys: () => ipcRenderer.invoke('has-required-keys'),
+    getApiKeys: () => ipcRenderer.invoke('get-api-keys'),
+    saveApiKeys: (keys: any) => ipcRenderer.invoke('save-api-keys', keys),
+    getApiKey: (keyName: string) => ipcRenderer.invoke('get-api-key', keyName),
   });
 
   // Expose monitorAPI for the web contents

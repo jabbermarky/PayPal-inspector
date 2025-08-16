@@ -1,6 +1,5 @@
 // src/main/index.ts
 import { app, BrowserWindow } from 'electron';
-import { join } from 'path';
 import { BrowserManager } from './services/browser-manager';
 import { setupBrowserEvents } from './ipc/browser-events';
 import { setupMonitoringEvents } from './ipc/monitoring';
@@ -44,8 +43,13 @@ async function createWindow(): Promise<void> {
 
 }
 
+// Handle invalid certificates
+app.commandLine.appendSwitch('ignore-certificate-errors');
+
 // Handle app lifecycle
-app.whenReady().then(createWindow);
+app.whenReady().then(() => {
+  createWindow();
+});
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {

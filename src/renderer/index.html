@@ -2,43 +2,59 @@
 <html>
 
 <head>
-    <title>PayPal Inspector</title>
+  <title>PayPal Inspector</title>
 </head>
 
 <body>
-    <!-- Session Modal -->
-    <div id="session-modal" class="modal">
-        <div class="modal-content">
-            <h2>Session Information</h2>
-            <div class="form-group">
-                <label for="session-name">Name:</label>
-                <input type="text" id="session-name" placeholder="Session Name">
-            </div>
-            <div class="form-group">
-                <label for="session-description">Description:</label>
-                <textarea id="session-description" placeholder="Session Description" rows="2"></textarea>
-            </div>
-            <div class="modal-buttons">
-                <button id="save-session">Start Session</button>
-                <button id="cancel-session">Cancel</button>
-            </div>
-        </div>
+  <!-- Config Modal -->
+  <div id="api-keys-modal" class="modal">
+    <div class="modal-content">
+      <h2>Configure API Keys</h2>
+      <div class="form-group">
+        <label for="openai-api-key">OpenAI API Key:</label>
+        <input type="text" id="openai-api-key" placeholder="sk-...">
+      </div>
+      <!-- Add more API key fields as needed -->
+      <div class="modal-buttons">
+        <button id="save-api-keys">Save</button>
+        <button id="cancel-api-keys">Cancel</button>
+      </div>
     </div>
+  </div>
 
-    <!-- Main Browser Layout -->
-    <div id="browser-controls">
-        <div class="url-bar">
-            <input type="url" id="start-url" placeholder="Enter URL">
-            <button id="end-session" disabled>End Session</button>
-            <button id="capture-screen" disabled>Capture Screen</button>
-        </div>
+  <!-- Session Modal -->
+  <div id="session-modal" class="modal">
+    <div class="modal-content">
+      <h2>Session Information</h2>
+      <div class="form-group">
+        <label for="session-name">Name:</label>
+        <input type="text" id="session-name" placeholder="Session Name">
+      </div>
+      <div class="form-group">
+        <label for="session-description">Description:</label>
+        <textarea id="session-description" placeholder="Session Description" rows="2"></textarea>
+      </div>
+      <div class="modal-buttons">
+        <button id="save-session">Start Session</button>
+        <button id="cancel-session">Cancel</button>
+      </div>
     </div>
+  </div>
 
-    <!-- Progress Panel -->
-    <div id="progress-view">
-        <h3>Session Progress</h3>
-        <div id="pages-list"></div>
+  <!-- Main Browser Layout -->
+  <div id="browser-controls">
+    <div class="url-bar">
+      <input type="url" id="start-url" placeholder="Enter URL">
+      <button id="end-session" disabled>End Session</button>
+      <button id="capture-screen" disabled>Capture Screen</button>
     </div>
+  </div>
+
+  <!-- Progress Panel -->
+  <div id="progress-view">
+    <h3>Session Progress</h3>
+    <div id="pages-list"></div>
+  </div>
 </body>
 
 </html>

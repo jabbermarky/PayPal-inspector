@@ -166,10 +166,86 @@ class WebSessionBrowser {
   }
 }
 
+// API Keys Modal Management
+class ApiKeysManager {
+  private modal: HTMLElement;
+  private openaiKeyInput: HTMLInputElement;
+
+  constructor() {
+    this.modal = document.getElementById('api-keys-modal')!;
+    this.openaiKeyInput = document.getElementById('openai-api-key') as HTMLInputElement;
+
+    this.setupEventListeners();
+    this.checkApiKeysOnStartup();
+  }
+
+  private setupEventListeners() {
+    // Save button
+    document.getElementById('save-api-keys')?.addEventListener('click', () => {
+      this.saveApiKeys();
+    });
+
+    // Cancel button
+    document.getElementById('cancel-api-keys')?.addEventListener('click', () => {
+      this.hideModal();
+    });
+
+    // API Settings button
+    document.getElementById('api-settings')?.addEventListener('click', () => {
+      this.showModal();
+    });
+
+    // Close modal on outside click
+    this.modal.addEventListener('click', (e) => {
+      if (e.target === this.modal) {
+        this.hideModal();
+      }
+    });
+  }
+
+  private async checkApiKeysOnStartup() {
+    const hasKeys = await window.electronAPI.hasRequiredKeys();
+    if (!hasKeys) {
+      this.showModal();
+    }
+  }
+
+  private async showModal() {
+    // Load existing keys
+    const keys = await window.electronAPI.getApiKeys();
+    if (keys.OPENAI_API_KEY) {
+      this.openaiKeyInput.value = keys.OPENAI_API_KEY;
+    }
+
+    this.modal.style.display = 'block';
+  }
+
+  private hideModal() {
+    this.modal.style.display = 'none';
+  }
+
+  private async saveApiKeys() {
+    const keys = {
+      OPENAI_API_KEY: this.openaiKeyInput.value
+    };
+
+    // Only save if required keys are provided
+    if (!keys.OPENAI_API_KEY) {
+      alert('Please enter all required API keys');
+      return;
+    }
+
+    await window.electronAPI.saveApiKeys(keys);
+    this.hideModal();
+  }
+}
+
+
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
   try {
     console.log('Creating WebSessionBrowser instance');
+    new ApiKeysManager();
     new WebSessionBrowser();
   } catch (error) {
     console.error('Error creating WebSessionBrowser:', error);

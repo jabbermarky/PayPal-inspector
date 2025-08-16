@@ -27,6 +27,10 @@ declare global {
       onPageMetrics: (callback: (data: any) => void) => void;
       onPageNavigated: (callback: (url: string) => void) => void;
       captureScreen: () => Promise<{ success: boolean }>;
+      hasRequiredKeys: () => Promise<boolean>;
+      getApiKeys: () => Promise<any>;
+      saveApiKeys: (keys: any) => Promise<void>;
+      getApiKey: (keyName: string) => Promise<string | undefined>;
     };
   }
 
