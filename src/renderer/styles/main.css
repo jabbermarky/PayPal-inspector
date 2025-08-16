@@ -77,8 +77,8 @@ body {
   background-color: #fff;
   margin: 15% auto;
   padding: 20px;
-  width: 50%;
-  max-width: 500px;
+  width: 80%;
+  max-width: 800px;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -90,6 +90,7 @@ body {
 
 .form-group {
   margin-bottom: 15px;
+  padding-right: 20px;
 }
 
 .form-group label {

@@ -177,8 +177,15 @@ class ApiKeysManager {
 
     this.setupEventListeners();
     this.checkApiKeysOnStartup();
+    this.setupMenuListeners();
   }
 
+  private setupMenuListeners() {
+    // Listen for menu action to show API settings
+    window.electronAPI.onShowApiSettings(() => {
+      this.showModal();
+    });
+  }
   private setupEventListeners() {
     // Save button
     document.getElementById('save-api-keys')?.addEventListener('click', () => {
@@ -218,6 +225,7 @@ class ApiKeysManager {
     }
 
     this.modal.style.display = 'block';
+    this.openaiKeyInput.focus();
   }
 
   private hideModal() {

@@ -31,6 +31,7 @@ declare global {
       getApiKeys: () => Promise<any>;
       saveApiKeys: (keys: any) => Promise<void>;
       getApiKey: (keyName: string) => Promise<string | undefined>;
+      onShowApiSettings: (callback: () => void) => void;
     };
   }
 

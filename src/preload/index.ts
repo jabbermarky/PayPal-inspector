@@ -28,7 +28,7 @@ function sanitizeMetricsData(data: any): SafeMetricsData {
     safeData.method = String(data.method);
     safeData.status = Number(data.status);
     safeData.duration = Number(data.duration);
-    
+
     if (data.requestHeaders) {
       safeData.requestHeaders = Object.fromEntries(
         Object.entries(data.requestHeaders).map(([k, v]) => [String(k), String(v)])
@@ -51,16 +51,21 @@ try {
     createWebContents: (url: string) => ipcRenderer.invoke('create-web-contents', url),
     endSession: () => ipcRenderer.invoke('end-session'),
     captureScreen: () => ipcRenderer.invoke('capture-screen'),
-    onPageMetrics: (callback: (data: any) => void) => 
-      ipcRenderer.on('page-metrics', (_event:any, data:any) => callback(data)),
-    onPageNavigated: (callback: (url: string) => void) => 
-      ipcRenderer.on('page-navigated', (_event:any, url:any) => callback(url)),
-  
+    onPageMetrics: (callback: (data: any) => void) =>
+      ipcRenderer.on('page-metrics', (_event: any, data: any) => callback(data)),
+    onPageNavigated: (callback: (url: string) => void) =>
+      ipcRenderer.on('page-navigated', (_event: any, url: any) => callback(url)),
+
     // API Key management
     hasRequiredKeys: () => ipcRenderer.invoke('has-required-keys'),
     getApiKeys: () => ipcRenderer.invoke('get-api-keys'),
     saveApiKeys: (keys: any) => ipcRenderer.invoke('save-api-keys', keys),
     getApiKey: (keyName: string) => ipcRenderer.invoke('get-api-key', keyName),
+
+    // Menu action listeners
+    onShowApiSettings: (callback: () => void) => {
+      ipcRenderer.on('show-api-settings', callback);
+    },
   });
 
   // Expose monitorAPI for the web contents
