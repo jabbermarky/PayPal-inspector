@@ -1,1 +1,0 @@
-{"version":3,"file":"sdk-identification.d.ts","sourceRoot":"","sources":["../../../src/renderer/services/sdk-identification.ts"],"names":[],"mappings":"AAOA,UAAU,QAAQ;IAChB,IAAI,EAAE,MAAM,CAAC;IACb,OAAO,CAAC,EAAE,MAAM,CAAC;IACjB,UAAU,EAAE,OAAO,CAAC;CACrB;AAED,qBAAa,wBAAwB;IACnC,OAAO,CAAC,QAAQ,CAgDd;IAEF,WAAW,CAAC,GAAG,EAAE,MAAM,GAAG,QAAQ,EAAE;CA6CrC"}
